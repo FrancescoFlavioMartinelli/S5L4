@@ -18,11 +18,11 @@
     </div>
 
     <form action="pagina.php" method="GET">
-        <input type="text" name="nome" id="nome" placeholder="Nome">
-        <input type="email" name="email" id="email" placeholder="Email">
-        <input type="password" name="password" id="password" placeholder="Password">
+        <input type="text" name="nome" id="nome" placeholder="Nome" required maxlength="10">
+        <input type="email" name="email" id="email" placeholder="Email" required >
+        <input type="password" name="password" id="password" placeholder="Password" required minlength="8">
 
-        <button type="submit">Invia</button>
+        <button type="submit" class="disabled">Invia</button>
         <button type="reset">Cancella</button>
     </form>
 

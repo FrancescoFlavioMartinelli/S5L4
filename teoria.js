@@ -191,13 +191,13 @@ var xhttp = new XMLHttpRequest();
 //prima di inviare (.send()) impostare la funzione di callback (cosa deve fare lo script quando la risposta arriva)
 xhttp.onload = function () {
     console.log("OnLoad");
-    if(this.readyState == 4 && this.status == 200){
+    if (this.readyState == 4 && this.status == 200) {
         //controllo che lo readyState sia 4 (risposta in arrivo (completata))
         //controllo che lo status sia 200 (successo)
         console.log(res = JSON.parse(this.responseText)); // converto la stringa di risposta in oggetto javascript e la assrgna a res (che sarà parametro del console.log() dopo l'esecizione dell'assegnazione )
 
     }
-    if(this.status == 404) {
+    if (this.status == 404) {
         //controllo uno status per gestire in maniera precisa quell'errore
         alert("HAI SBAGLIATO IL NOME DEL FILE!")
     }
@@ -229,17 +229,71 @@ somma(...arr)
 
 /*REST PARAMETER*/
 //come passare un numero indefinito di parametri SENZA rest parameter
-function somma(arrPar){
-    arrPar.forEach((e,i)=>{})
+function somma(arrPar) {
+    arrPar.forEach((e, i) => {})
     // for(let p of arrPar){}
 }
 somma([2, 3, 4])
 
 //come passare un numero indefinito di parametri CON rest parameter
-function somma(...arrPar){
+function somma(...arrPar) {
     //la funzione accetta qualunque numero di parametri, saranno tutti inseriti in un Array chiamato arrPar
-    arrPar.forEach((e,i)=>{})
+    arrPar.forEach((e, i) => {})
     // for(let p of arrPar){}
 }
-somma(2, 3, 4)//in function somma() il parametro sarà arrPar = [2, 3, 4]
+somma(2, 3, 4) //in function somma() il parametro sarà arrPar = [2, 3, 4]
 somma(...arr) //somma(3, 5, 6)
+
+
+/*forEach() su NodeList */
+let w = document.querySelectorAll("input") //querySelectorAll -> NodeList
+//Il forEach() di NodeList è identico al forEach di Array,
+//I parametri sono in ordine l'elemento, l'indice (del giro), l'array (o NodeList) che stiamo iterando
+w.forEach((e, i, coll) => {
+    console.log(w)
+})
+
+//L'uso del terzo parametro di solito serve quando non abbiamo uin accesso veloce all'Array ma ci serve a ogni giro
+// document.querySelectorAll("input").forEach((e, i, coll)=>{console.log(coll)}) //poco utile, conviene avere una variabile per riusabilità
+
+//Esempio forEach con querySelectorAll
+let inputs = document.querySelectorAll("input")
+inputs.forEach((e) => {
+    e.addEventListener("input", (event) => {
+        if (event.target.validity.valid) {
+            event.target.style.backgroundColor = "green"
+            // event.target.classList.remove("notValid")
+        } else {
+            for (let prop in event.target.validity) {
+                if (event.target.validity[prop]) {
+                    console.log(prop + " non valido");
+                }
+            }
+            event.target.style.backgroundColor = "red"
+            // event.target.classList.add("notValid")
+        }
+
+        checkInputs()
+
+        // if(document.querySelectorAll(".notValid").length > 0) {
+        //     document.querySelector("button[type=submit]").classList.add("disabled")
+        // } else {
+        //     document.querySelector("button[type=submit]").classList.remove("disabled")
+        // }
+    })
+})
+
+
+function checkInputs() {
+    let ok = true
+    inputs.forEach((e) => {
+        if (!e.validity.valid) {
+            ok = false
+        }
+    })
+    if (ok) {
+        document.querySelector("button[type=submit]").classList.remove("disabled")
+    } else {
+        document.querySelector("button[type=submit]").classList.add("disabled")
+    }
+}

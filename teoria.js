@@ -227,13 +227,19 @@ let arr = [3, 5, 6];
 somma(...arr)
 
 
+/*REST PARAMETER*/
+//come passare un numero indefinito di parametri SENZA rest parameter
 function somma(arrPar){
-    arr.forEach()
+    arrPar.forEach((e,i)=>{})
+    // for(let p of arrPar){}
 }
 somma([2, 3, 4])
 
+//come passare un numero indefinito di parametri CON rest parameter
 function somma(...arrPar){
-    arr.forEach()
+    //la funzione accetta qualunque numero di parametri, saranno tutti inseriti in un Array chiamato arrPar
+    arrPar.forEach((e,i)=>{})
+    // for(let p of arrPar){}
 }
-somma(2, 3, 4)
-somma(...arr)
+somma(2, 3, 4)//in function somma() il parametro sarà arrPar = [2, 3, 4]
+somma(...arr) //somma(3, 5, 6)
